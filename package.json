@@ -1,0 +1,28 @@
+{
+  "name": "web3_wave-portal",
+  "version": "1.0.0",
+  "description": "Buildspace project to build a Web3 App with Solidity + Ethereum Smart Contracts",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/srehouni/web3_wave-portal.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/srehouni/web3_wave-portal/issues"
+  },
+  "homepage": "https://github.com/srehouni/web3_wave-portal#readme",
+  "devDependencies": {
+    "@nomiclabs/hardhat-ethers": "^2.0.2",
+    "@nomiclabs/hardhat-waffle": "^2.0.1",
+    "chai": "^4.3.4",
+    "ethereum-waffle": "^3.4.0",
+    "ethers": "^5.5.1",
+    "hardhat": "^2.6.8"
+  }
+}
