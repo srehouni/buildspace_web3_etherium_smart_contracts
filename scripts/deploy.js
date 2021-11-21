@@ -1,5 +1,5 @@
 const main = async () => {
-    const [deployer] = await hre.ethers.getSigners();
+    const [deployer, randomPerson] = await hre.ethers.getSigners();
     const accountBalance = await deployer.getBalance();
   
     console.log('Deploying contracts with account: ', deployer.address);
@@ -10,6 +10,27 @@ const main = async () => {
     await portal.deployed();
   
     console.log('WavePortal address: ', portal.address);
+
+    let waveCount;
+    waveCount = await portal.getTotalWaves();
+
+    let waveTxn = await portal.wave()
+    await waveTxn.wait();
+
+    waveCount = await portal.getTotalWaves();
+
+    waveTxn = await portal.connect(randomPerson).wave();
+    await waveTxn.wait();
+
+    waveCount = await portal.getTotalWaves();
+
+    waveTxn = await portal.connect(randomPerson).wave();
+    await waveTxn.wait();
+
+    waveCount = await portal.getTotalWaves();
+
+    let maxWaver = await portal.getMaxWaverAddress();
+
   };
   
   const runMain = async () => {
