@@ -1,10 +1,10 @@
 import logo from './logo.svg';
 import './App.css';
+import { useEffect, useState } from "react";
 
 function App() {
-  const wave = () => {
-    
-  }
+  const [currentAccount, setCurrentAccount] = useState("");
+  
   
   return (
     <div className="mainContainer">
@@ -18,9 +18,15 @@ function App() {
         I am farza and I worked on self-driving cars so that's pretty cool right? Connect your Ethereum wallet and wave at me!
         </div>
 
-        <button className="waveButton" onClick={wave}>
+        <button className="waveButton" onClick={null}>
           Wave at Me
         </button>
+
+        {!currentAccount && ( 
+          <button className="connectWalletButton">
+            Connect Wallet
+          </button>
+        )}
       </div>
     </div>
   );
