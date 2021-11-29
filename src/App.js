@@ -53,20 +53,20 @@ const getAllWaves = async () => {
 
       let wavesCleaned = [];
       waves.forEach(wave => {
-        wavesCleangited.push({
+        wavesCleaned.push({
           address: wave.waver,
           timestamp: new Date(wave.timestamp * 1000),
           message: wave.message
         });
       });
 
+      setAllWaves(wavesCleaned);
     } else {
       console.log("Ethereum object does not exist");
     }
   } catch (error) {
     console.log(error);
   }
-
 }
   
   const checkIfWalletIsConnected = async () => {
