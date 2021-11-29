@@ -10,11 +10,21 @@ contract WavePortal {
     address maxWaver;
     uint256 maxWaverWavesCount;
 
+    event NewWave(address indexed from, uint256 timestamp, string message);
+
+    struct Wave {
+        address waver;
+        string message;
+        uint256 timestamp;
+    }
+
+    Wave[] waves;
+
     constructor() {
         console.log("Yo yo, gm y'all");
     }
 
-    function wave() public {
+    function wave(string memory _message) public {
         totalWaves += 1;
         console.log("%s has waved!", msg.sender);
         wavers[msg.sender] += 1;
@@ -23,11 +33,18 @@ contract WavePortal {
             maxWaver = msg.sender;
             maxWaverWavesCount = wavers[msg.sender];
         }
+
+        waves.push(Wave(msg.sender, _message, block.timestamp));
+        emit NewWave(msg.sender, block.timestamp, _message);
     }
 
     function getTotalWaves() public view returns (uint256) {
         console.log("We have %d total waves!", totalWaves);
         return totalWaves;
+    }
+
+    function getAllWaves() public view returns (Wave[] memory) {
+        return waves;
     }
 
     function getMaxWaverAddress() public view returns (address) {
