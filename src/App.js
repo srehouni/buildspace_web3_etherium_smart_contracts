@@ -7,6 +7,8 @@ import { ethers } from "ethers";
 function App() {
   const [currentAccount, setCurrentAccount] = useState("");
   const [allWaves, setAllWaves] = useState([]);
+  const [waveMessage, setWaveMessage] = useState("")
+  const [btnDisabled, setBtnDisabled] = useState(true)
 
   const contractAddress = "0x9dFa446ed839b09BF1aEeC672f3B7Ed1E3C46088";
   const contractABI = abi.abi;
@@ -23,7 +25,7 @@ function App() {
         let count = await wavePortalContract.getTotalWaves();
         console.log("Retrieved total wave count...", count.toNumber());
 
-        const waveTxn = await wavePortalContract.wave("GM!");
+        const waveTxn = await wavePortalContract.wave(waveMessage);
         console.log("Mining...", waveTxn.hash);
 
         await waveTxn.wait();
@@ -38,6 +40,11 @@ function App() {
     } catch (error) {
       console.log(error)
     }
+}
+
+const onChange = (event) => {
+  setWaveMessage(event.currentTarget.value);
+  setBtnDisabled(!event.currentTarget.value); 
 }
 
 const getAllWaves = async () => {
@@ -128,7 +135,8 @@ const getAllWaves = async () => {
          Connect your Ethereum wallet and wave at me!
         </div>
 
-        <button className="waveButton" onClick={wave}>
+        <textarea value={waveMessage} onChange={onChange}/>
+        <button disabled={btnDisabled} className="waveButton" onClick={wave}>
           Wave at Me
         </button>
 
