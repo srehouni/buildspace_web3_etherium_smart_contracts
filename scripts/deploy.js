@@ -14,12 +14,12 @@ const main = async () => {
     let waveCount;
     waveCount = await portal.getTotalWaves();
 
-    let waveTxn = await portal.wave()
+    let waveTxn = await portal.wave("GM")
     await waveTxn.wait();
 
     waveCount = await portal.getTotalWaves();
 
-    waveTxn = await portal.connect(randomPerson).wave();
+    waveTxn = await portal.connect(randomPerson).wave("First message");
     await waveTxn.wait();
 
     waveCount = await portal.getTotalWaves();
@@ -31,6 +31,8 @@ const main = async () => {
 
     let maxWaver = await portal.getMaxWaverAddress();
 
+    let allWaves = await waveContract.getAllWaves();
+    console.log(allWaves);
   };
   
   const runMain = async () => {
