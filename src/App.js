@@ -23,7 +23,7 @@ function App() {
         let count = await wavePortalContract.getTotalWaves();
         console.log("Retrieved total wave count...", count.toNumber());
 
-        const waveTxn = await wavePortalContract.wave();
+        const waveTxn = await wavePortalContract.wave("GM!");
         console.log("Mining...", waveTxn.hash);
 
         await waveTxn.wait();
@@ -49,10 +49,11 @@ const getAllWaves = async () => {
       const wavePortalContract = new ethers.Contract(contractAddress, contractABI, signer);
 
       const waves = await wavePortalContract.getAllWaves();
+      console.log(waves);
 
       let wavesCleaned = [];
       waves.forEach(wave => {
-        wavesCleaned.push({
+        wavesCleangited.push({
           address: wave.waver,
           timestamp: new Date(wave.timestamp * 1000),
           message: wave.message
@@ -85,6 +86,7 @@ const getAllWaves = async () => {
         const account = accounts[0];
         console.log("Found an authorized account:", account);
         setCurrentAccount(account);
+        getAllWaves();
       } else {
         console.log("No authorized account found")
       }
@@ -117,14 +119,13 @@ const getAllWaves = async () => {
 
   return (
     <div className="mainContainer">
-
       <div className="dataContainer">
         <div className="header">
         👋 Hey there!
         </div>
 
         <div className="bio">
-        I am farza and I worked on self-driving cars so that's pretty cool right? Connect your Ethereum wallet and wave at me!
+         Connect your Ethereum wallet and wave at me!
         </div>
 
         <button className="waveButton" onClick={wave}>
@@ -136,6 +137,15 @@ const getAllWaves = async () => {
             Connect Wallet
           </button>
         )}
+        {allWaves.map((wave, index) => {
+          return (
+            <div key={index} style={{ backgroundColor: "OldLace", marginTop: "16px", padding: "8px" }}>
+              <div>Address: {wave.address}</div>
+              <div>Time: {wave.timestamp.toString()}</div>
+              <div>Message: {wave.message}</div>
+            </div>)
+        })}
+
       </div>
     </div>
   );
