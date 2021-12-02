@@ -5,12 +5,12 @@ pragma solidity ^0.8.4;
 import "hardhat/console.sol";
 
 contract WavePortal {
+    Wave[] waves;
     uint256 totalWaves;
     mapping(address => uint256) wavers;
     address maxWaver;
     uint256 maxWaverWavesCount;
-
-    event NewWave(address indexed from, uint256 timestamp, string message);
+    mapping(address => uint256) public lastWavedAt;
 
     struct Wave {
         address waver;
@@ -18,7 +18,8 @@ contract WavePortal {
         uint256 timestamp;
     }
 
-    Wave[] waves;
+    event NewWave(address indexed from, uint256 timestamp, string message);
+
     uint256 private seed;
 
     constructor() payable {
@@ -28,6 +29,11 @@ contract WavePortal {
     }
 
     function wave(string memory _message) public {
+
+        require(lastWavedAt[msg.sender] + 15 minutes < block.timestamp, "Wait 15m");
+
+        lastWavedAt[msg.sender] = block.timestamp;
+
         totalWaves += 1;
         console.log("%s has waved!", msg.sender);
         wavers[msg.sender] += 1;
