@@ -10,7 +10,7 @@ function App() {
   const [waveMessage, setWaveMessage] = useState("")
   const [btnDisabled, setBtnDisabled] = useState(true)
 
-  const contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
+  const contractAddress = "0xFA75BB243533a0D01fF6126451171c47BBc03A01";
   const contractABI = abi.abi;
 
   const wave = async () => {
@@ -25,7 +25,7 @@ function App() {
         let count = await wavePortalContract.getTotalWaves();
         console.log("Retrieved total wave count...", count.toNumber());
 
-        const waveTxn = await wavePortalContract.wave(waveMessage);
+        const waveTxn = await wavePortalContract.wave(waveMessage, { gasLimit: 300000 });
         console.log("Mining...", waveTxn.hash);
 
         await waveTxn.wait();
