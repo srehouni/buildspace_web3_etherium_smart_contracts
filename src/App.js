@@ -10,7 +10,7 @@ function App() {
   const [waveMessage, setWaveMessage] = useState("")
   const [btnDisabled, setBtnDisabled] = useState(true)
 
-  const contractAddress = "0x9dFa446ed839b09BF1aEeC672f3B7Ed1E3C46088";
+  const contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
   const contractABI = abi.abi;
 
   const wave = async () => {
